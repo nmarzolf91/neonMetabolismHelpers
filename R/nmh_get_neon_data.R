@@ -39,7 +39,6 @@
 #' @export
 
 nmh_get_neon_data <- function(product_codes = 'all', 
-
                               q_type = 'raw',
                               dest_fp = NULL, # file path where all data is saved to
                               log = TRUE,
@@ -112,7 +111,7 @@ nmh_get_neon_data <- function(product_codes = 'all',
     # default is to retrieve all data necessary for NEON metabolism, this is
     if('all' %in% product_codes) {
       # products are: discharge, light, barometric pressure, water temp, & dissolved oxygen
-      product_codes <- c('DP4.00130.001', 'DP1.20042.001', 'DP1.00004.001', 'DP1.20053.001', 'DP1.20264.001','DP1.20288.001')
+      product_codes <- c('DP4.00130.001', 'DP1.20042.001', 'DP1.00004.001', 'DP1.20053.001', 'DP1.20264.001','DP1.20288.001', "DP1.20190.001")
     }
 
     if(!quietly) {
@@ -263,8 +262,8 @@ nmh_get_neon_data <- function(product_codes = 'all',
              if(stream_only) {
                writeLines('this package is meant for stream and river data only -- filtering available sites to only stream and river type NEON sites')
 
-               neon_sites <- get_neon_site_data(arg = 'n') %>% 
-                 dplyr::pull(field_site_id)
+               neon_sites <- nmh_get_neon_site_data() %>% 
+                 dplyr::pull(`Site Code`)
 
                avail_sites <- avail_sites[avail_sites %in% neon_sites]
 

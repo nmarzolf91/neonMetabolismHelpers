@@ -38,4 +38,5 @@ nmh_get_neon_site_data <- function(dest_dir = 'data/',
 
   readr::write_csv(table_1,
                    destfile)
+  return(table_1)
 }
